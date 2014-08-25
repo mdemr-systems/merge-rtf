@@ -33,6 +33,10 @@ public class MergeRtf {
         return rtfBox.getRtf();
     }
 
+    public void dispose() {
+        rtfBox.Dispose();
+    }
+
     public static OutputStream merge(Iterable<String> documents) throws IOException, URISyntaxException {
         CodeSource codeSource = MergeRtf.class.getProtectionDomain().getCodeSource();
         File jar = new File(codeSource.getLocation().toURI().getPath());
@@ -54,6 +58,8 @@ public class MergeRtf {
         writer.write(rtf.merged());
         writer.flush();
         writer.close();
+
+        rtf.dispose();
         return stream;
     }
 }
